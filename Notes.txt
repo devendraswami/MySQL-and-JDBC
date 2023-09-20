@@ -1,0 +1,290 @@
+#Day5 Of 100daysOfCode - 
+
+  
+MySQL and introduction to JDBC-  
+
+
+
+Pre-Requisite
++++++++++++++
+a. Core java concepts like (interface,polymorphism,Exception handling and
+Collections)
+b. Basics of MySQL(covered live) 
+
+
+
+JEE- Target 
++++
+1. Making Java application communicate with database using JDBC-API.
+2. Building webapplications using Servlet and JSP by following an architecture
+called "MVC".
+3. Sample project of webapplication (StudentRelationship Manager application).
+++++++++++++++++++++++++++++++++++
+
+
+
+
+Introduction to Database Concepts
+++++++++++++++++++++++++++++++++++
+1. Understand what is Data, Database,Database Management System
+
+Data -> Information about any real world object
+eg:
+Chairs,Tables,Mobiles,Computers,Laptop,Student,Employee,Customer,....
+
+Example : If we are considering the college management System of students.
+Student
+
+RollNo,Name,Branch,Gender,Age (Data -> It is something particular about one student)
+
+Database -> Grouping the data in structured format (or) Grouping of Several students information
+
+Student-1
+Rollo: 10
+Name : sachin
+Branch: CSE
+Gender: Male
+Age: 28
+
+Student-2
+Rollo: 7
+Name : dhoni
+Branch: ECE
+Gender: Male
+Age: 27
+
+Student-3
+Rollo: 18
+Name : Kohli
+Branch: EEE
+Gender: Male
+Age: 27 
+
+
+Database Management Systems(DBMS)
+
+=> It is a technique for Storing and Retreiving the information from Database.
+In this Digital Era(Or) In our Day-2-Day Life we are seeing lot of applications
+such as
+naukri portal,monster portal, Flipkart,Amazon,Myntra, Pwskills portal etc...
+End User will interact with the application,Application will be connected to the
+Server and Gets the data from the Database server.
+++++++++++++++++++++++++++++++++++++++++
+
+
+
+Various Techniques for Managing the Data
+++++++++++++++++++++++++++++++++++++++++
+
+
+a. Traditional Apporach
+a. Books
+b. Ledger Books
+C. Collection of Pages
+d. Each Page
+
+
+Problems
+a. Security Challenge
+b. BackUp Issues
+c. Space Issue
+d. Costly
+e. TimeConsuming for Retrieving particular student information.
+
+
+In early 1940's Computers were discoverd and people are thinking to store this kind  of information in computer
+After discovering the computer the people are managing the data in the form of Files(or) FileSystem (or) Flat File.
+
+Problems
+a. Security Challenges
+b. DataRedundancy (Duplication of Data or Repetative Data)
+c. Data Inconsistency(Trying to update StudentId in one file, we may forget to update in another file)
+d. TimeConsuming for Retrieving information from Files(or) FileSystem(or) Flat Files.
+e. We can't maintain the backup of files.
+f. We can Store limited infomration or limited amount of information in files.
+
+
+++++++++++++++++++
+Database Softwares
+++++++++++++++++++
+
+-> Currently in market we ar managing the data of an application in Database Softwares.
+
+Advantages
+a. Strong Security(Username and Password)
+b. Managing and Storing, Retrieving the information.
+c. We can store huge amount of information in database.
+d. We can maintain the data in database in the Structured format(Tables
+---> Rows and Columns) 
+
+Rule::
+Table >> RealWorld Entity >> Student
+Columns>> Fields >> RollNo,Name,Branch,GenderRows >> Values >> 10,Sachin,CSE,MALE 
+
+e. No Data Redundancy
+f. Data Integrity
+g. Associations(1*1, 1*M,M*1,M*M)
+
+
+
+Database Softwares
+
+a. Oracle Database >> Oracle Corporation >> Propertiary Licencse
+b. MySQL Database >> Oracle Corpoartation >> Open Source
+c. DB2 Database >> IBM Corporation
+d. SQL Server Database >> Microsoft Corporation
+e. Derby Database >> SUNMS
+The above mentioned database softwares comes under "RDBS Database Software".
+
+
+MySQL installation
+==================
+
+1. Open browser of your choice
+2. Go to the following link https://dev.mysql.com/downloads/installer/
+3. Scroll down and choose the operating system click on 2nd link for downloading the software.
+4. Double click on the set up file and complete the installation(with just next,next clicks and provider the password as ::root123,default                  u    username is :: root)
+
+5. After installation check for mysql,if properly installed provide the password to login to MySQLDatabase.
+
+SQL
+=> It stands for Structured Query Language
+=> This language is used by DBA to interact with the database software.
+
+
+Syntax for Creating a Database
+++++++++++++++++++++++++++++++
+
+mysql> CREATE DATABASE PWSKILLSBATCH
+Query OK, 1 row affected (0.03 sec)
+
+Syntax for Using a Database
++++++++++++++++++++++++++++
+mysql> USE PWSKILLSBATCH
+Database changed
+
+Syntax for Performing operations
+++++++++++++++++++++++++++++++++
+a. DML => Data Manipulation Language eg: insert,update,delete
+b. DDL => Data Defnition Language eg: create,alter,drop
+c. DRL => Data Retrieval Language eg: select
+d. TCL => Transaction Control Language eg: commit,rollback,savepoint 
+
+
+DDL
+These commands refers to performing specific operation on the database or an atable
+eg:: Creating a database, dropping a database, creating a table, dropping a table, altering column name of table, altering datatype of column in      a      table  dropping a column in a datatabase,.......
+
+Drop a database
++++++++++++++++
+mysql> drop database pwskillsbatch;
+Query OK, 0 rows affected (0.03 sec)
+
+Creating a table inside a database
+++++++++++++++++++++++++++++++++++
+Syntax:: CREATE TABLE tablename (columname datatype, ,.......);
+mysql> create database pwskillsbatch;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use pwskillsbatch;
+Database changed
+
+mysql> create table student(sid int,sname varchar(20),sage int,saddressvarchar(20)); 
+
+Query OK, 0 rows affected (0.02 sec)
+
+
+mysql> show tables;
++-------------------------+
+| Tables_in_pwskillsbatch |
++-------------------------+
+| student |
++-------------------------+
+1 row in set (0.00 sec) 
+
+
+mysql> describe student;
++----------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid | int | YES | | NULL | |
+| sname | varchar(20) | YES | | NULL | |
+| sage | int | YES | | NULL | |
+| saddress | varchar(20) | YES | | NULL | |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+++++++++++++++++++++++++++++++++++++++++++++++ 
+
+
+Syntax for Inserting Single record into table
+++++++++++++++++++++++++++++++++++++++++++++++
+Syntax :: INSERT INTO tbl_name (columnames1,columnnames2,....)
+VALUES(value1,value2,.....);
+mysql> insert into student(sid,sname,sage,saddress) values(10,'sachin',50,'IND');
+Query OK, 1 row affected (0.03 sec)
++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Syntax for Inseting Multiple records into table
++++++++++++++++++++++++++++++++++++++++++++++++
+Syntax :: INSERT INTO tbl_name(columnanems1,columnnames2,...) values (),(),();mysql> insert into student(sid,sname,sage,saddress) values(7,'dhoni',44,'IND'),
+(9,'lara',51,'WI'),(14,'ponting',48,'AUS');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3 Duplicates: 0 Warnings: 0
+++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+Syntax for Retrieving record from the table
++++++++++++++++++++++++++++++++++++++++++++
+Syntax :: select columnames1,columnnames2,... from tbl_name where column_name = value;
+
+eg#1.
+mysql> select sid,sname,sage,saddress from student;
++------+--------+------+----------+
+| sid | sname | sage | saddress |
++------+--------+------+----------+
+| 10 | sachin | 50 | IND |
++------+--------+------+----------+
+1 row in set (0.00 sec)
+
+eg#2.
+mysql> select * from student;
++------+---------+------+----------+
+| sid | sname | sage | saddress |
++------+---------+------+----------+
+| 10 | sachin | 50 | IND |
+| 7 | dhoni | 44 | IND |
+| 9 | lara | 51 | WI |
+| 14 | ponting | 48 | AUS |
++------+---------+------+----------+
+4 rows in set (0.00 sec)
+
+eg#3.
+mysql> select sid,sname,sage,saddress from student where sid = 10;
++------+--------+------+----------+
+| sid | sname | sage | saddress |
++------+--------+------+----------+
+| 10 | sachin | 50 | IND |
++------+--------+------+----------+
+1 row in set (0.01 sec)
+
+
+eg#4.
+mysql> select sid,sname,sage,saddress from student where sid = 15;
+Empty set (0.00 sec)
+++++++++
+
+
+JDBC API
+++++++++
+=> It is an API given by SUNMS to interact with the database.
+=> To interact with the database SUNMS had given a jar called rt.jar which is available for the programmer during the installation of jdk s/w.
+=> To use JDBC in java program we take the support of a package called "java.sql.*" and "javax.sql.*".
+=> API refers to set of rules and guideliness which has interfaces.
+=> To get the implementation for these interface abstract methods we need to take the help of "DB-Vendor".
+=> DB-Vendor will give the implementation for "SRS" and release those implementation classes in the form of "jars" to the javadevelop community people.
+=> Depending upon the database we use in our project we need to use the respective
+jars supplied by "DB-Vendor".
