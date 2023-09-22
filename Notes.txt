@@ -331,13 +331,13 @@ Steps given by SUNMS to interact with Database
 
 
 
-To execute select Query we need to use
+To execute select Query we need to use-
+                                 public ResultSet executeQuery(String sqlQuery) throws SQLException
 
-public ResultSet executeQuery(String sqlQuery) throws SQLException
+To execute non-select query like insert,update,delete we need to use - 
+                                                                   public int executeUpdate(String sqlNonSelectQuery) throws SQLException 
+  
 
-To execute non-select query like insert,update,delete we need to use 
-
-public int executeUpdate(String sqlNonSelectQuery) throws SQLException 
 
 +++++++++++++++++++++++++++
 Code to execute SelectQuery
@@ -353,32 +353,39 @@ import java.sql.Statement;
 public class TestApp {
   public static void main(String[] args) throws ClassNotFoundException,SQLException {
     
-           // load and register the driver
-Class.forName("com.mysql.cj.jdbc.Driver");
-// Establish the Connection
-String url = "jdbc:mysql://localhost:3306/pwskillsbatch";
-String user = "root";
-String password = "root123";
-Connection connection = DriverManager.getConnection(url, user,
-password);
-// Create a Statement object
-Statement statement = connection.createStatement();
-// Execute the query
-String sqlSelectQuery = "select sid,sname,sage,saddress from student";
-ResultSet resultSet = statement.executeQuery(sqlSelectQuery);
-System.out.println("SID\tSNAME\tSAGE\tSADDRESS");
-// Process the resultSet
-while (resultSet.next()) {
-System.out.println(resultSet.getInt(1) + "\t" +
-resultSet.getString(2) + "\t" + resultSet.getInt(3) + "\t"
-+ resultSet.getString(4));
-}
-//close the resources
-resultSet.close();
-statement.close();
-connection.close();
-}
-}
+               // load and register the driver
+           Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the Connection
+                    String url = "jdbc:mysql://localhost:3306/pwskillsbatch";
+                    String user = "root";
+                    String password = "root123";
+                   Connection connection = DriverManager.getConnection(url, user,password);
+
+
+            // Create a Statement object
+          Statement statement = connection.createStatement();
+
+               // Execute the query
+          String sqlSelectQuery = "select sid,sname,sage,saddress from student";
+          ResultSet resultSet = statement.executeQuery(sqlSelectQuery);
+           
+        System.out.println("SID\tSNAME\tSAGE\tSADDRESS");
+  
+          // Process the resultSet
+           while (resultSet.next()) {
+         System.out.println(resultSet.getInt(1) + "\t" +resultSet.getString(2) + "\t" + resultSet.getInt(3) + "\t"+ resultSet.getString(4));
+             } 
+
+
+              //close the resources
+              resultSet.close();
+               statement.close();
+              connection.close();
+                    }
+                }
+
+
 +++++++++++++++++++++++++++
 Code to execute InsertQuery
 +++++++++++++++++++++++++++
